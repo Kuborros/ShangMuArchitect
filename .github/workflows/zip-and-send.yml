@@ -5,6 +5,7 @@ on:
 
 jobs:
   zipup: 
+    if: github.event.commits[0].author.name != 'Kuborros'
     runs-on: ubuntu-latest
 
     steps:

@@ -18,7 +18,7 @@ jobs:
       run: |
         find . -type f -name "*.c" -exec rename 's/\.c$/.gml/' '{}' \;
         
-    - name: Zip the thing up   
+    - name: Zip up the localisation files  
       uses: vimtor/action-zip@v1.2
       with:
         files: Localization/ 

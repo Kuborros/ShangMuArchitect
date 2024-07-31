@@ -38,5 +38,7 @@ jobs:
         cc: ${{secrets.SEND_TRANSLATIONS_TO_CC}}
         convert_markdown: true
         attachments: Localization.zip
+        nodemailerlog: true
+        nodemailerdebug: true
 
       

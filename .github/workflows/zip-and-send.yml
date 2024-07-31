@@ -16,7 +16,7 @@ jobs:
 
     - name: Rename .c to .gml
       run: |
-        find . -type f -name "*.txt" -exec rename 's/\.c$/.gml/' '{}' \;
+        find . -type f -name "*.c" -exec rename 's/\.c$/.gml/' '{}' \;
         
     - name: Zip the thing up   
       uses: vimtor/action-zip@v1.2

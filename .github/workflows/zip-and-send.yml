@@ -1,0 +1,42 @@
+name: Zip and Send
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  zipup: 
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Rename .c to .gml
+      run: |
+        find . -type f -name "*.txt" -exec rename 's/\.c$/.gml/' '{}' \;
+        
+    - name: Zip the thing up   
+      uses: vimtor/action-zip@v1.2
+      with:
+        files: Localization/ 
+        dest: Localization.zip
+        
+    - name: Package to artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Latest Translation Files
+        path: Localization.zip
+
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3
+      with:
+        connection_url: ${{secrets.MAIL_CONNECTION}}
+        subject: Github Translation Files Update
+        to: ${{secrets.SEND_TRANSLATIONS_TO}}
+        from: GitHub 
+        body: New translation files have been uploaded! Archive of all the goodies attached :3
+        cc: ${{secrets.SEND_TRANSLATIONS_TO_CC}}
+        convert_markdown: true
+        attachments: Localization.zip
+
+      
